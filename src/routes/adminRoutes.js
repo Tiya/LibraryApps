@@ -1,28 +1,105 @@
 const express=require('express');
 const adminRouter=express.Router();
 const Bookdata=require('../model/Bookdata')
+const multer = require('multer');
+const path = require('path');
+var fs = require('fs');
+const {
+  GridFsStorage
+} = require("multer-gridfs-storage");
+ 
+require("dotenv")
+  .config();
+
+
+// set up multer for storing uploaded files
+const storage=multer.diskStorage({
+  //destination for files
+  destination:function(request,file,callback){
+    callback(null,'../LibraryApps/public/uploads/images');
+  },
+  //add back the extensions
+  filename:function(request,file, callback){
+  
+    callback(null,file.fieldname+Date.now()+path.extname(file.originalname));
+  }
+})
+
+//upload parameters for mutter
+const upload = multer({ 
+  storage: storage,
+  limits:{
+    fileSize: 1000000
+  },
+  fileFilter:function(req,file,callback){
+    checkFileType(file, callback);
+  }
+});
+//Check file type
+function checkFileType(file, callback){
+
+  // allowed extension
+  const filetypes = /jpeg|jpg|png|gif/;
+  //check extension
+  const extname=filetypes.test(path.extname(file.originalname).toLowerCase());
+  //check mime
+  const mimetype=filetypes.test(file.mimetype);
+  if(mimetype&&extname){
+    return callback(null, true);
+  }else{
+    callback('Error: Images only');
+  }
+}
+var imgModel = require('../model/Bookdata');
 
 function router(nav){
 adminRouter.get('/',function(req,res){
-    res.render('addBook',{
-        nav,
-        title:'Library'
-    })
+   
+
+    imgModel.find({}, (err, items) => {
+      if (err) {
+          console.log(err);
+          res.status(500).send('An error occurred', err);
+      }
+      else {
+          //res.render('imagesPage', { items: items });
+          res.render('addBook',{
+            nav,
+            title:'Library'
+            
+        })
+      }
+  });
 })
 
-adminRouter.post('/add',function(req,res){
+adminRouter.post('/add',upload.single(`image`), function(req,res){
   // res.send("Hey I am Added");
+ 
   var item={
     title: req.body.title,
     author: req.body.author,
     genre: req.body.genre,
-    image: req.body.image
+    //image: req.file.image,
+    image: {
+      data: fs.readFileSync(path.join('../LibraryApps/public/uploads/images/' + req.file.filename)), 
+      contentType: 'image/png',
   }
-  var book=Bookdata(item);
-  book.save();
-  res.redirect('/books');
+  }
+  imgModel.create(item, (err, item) => {
+    if (err) {
+        console.log(err);
+    }
+    else {
+      var book=Bookdata(item);
+      book.save();
+      res.redirect('/books');
+    }
+});
+ 
 
 });
+
 return adminRouter;
 }
+
 module.exports=router;

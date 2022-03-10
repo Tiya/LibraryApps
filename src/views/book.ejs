@@ -95,7 +95,12 @@
           <div class="row">    
             <br>
             <div class="col-md-2 col-sm-3 text-center">
-              <a class="story-title" href="#"><img alt="" src="/images/<%=book.image%>" style="width:100px;height:100px" class="img-circle"></a>
+           
+              <a class="story-title" href="#">
+                <!-- <img alt="" src="/images/<%=book.image%>" style="width:100px;height:100px" class="img-circle"> -->
+                <img src="data:<%=book.image.contentType%>;base64,<%=book.image.data.toString('base64')%>"  style="width:100px;height:100px" class="img-circle">
+
+              </a>
             </div>
             <div class="col-md-10 col-sm-9">
               <h3><%=book.title%></h3>
@@ -171,5 +176,6 @@
 	<!-- script references -->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
+   
 	</body>
 </html>

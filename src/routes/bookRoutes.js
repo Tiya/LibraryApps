@@ -34,13 +34,13 @@ function router(nav){
           });
         })
         
-       
-      });
       
+      });
+     
       // booksRouter.get('/single',function(req,res){
       //   res.send("Hey I am a single Book");
       // });
-      
+     
       booksRouter.get('/:id',function(req,res){
        const id=req.params.id;
         Bookdata.findOne({_id:id})
