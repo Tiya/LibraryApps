@@ -1,6 +1,6 @@
 const express=require('express');
 const adminRouter=express.Router();
-const Bookdata=require('../model/Bookdata')
+const BookdataModel=require('../model/Bookdata')
 const multer = require('multer');
 const path = require('path');
 var fs = require('fs');
@@ -50,13 +50,13 @@ function checkFileType(file, callback){
     callback('Error: Images only');
   }
 }
-var imgModel = require('../model/Bookdata');
+
 
 function router(nav){
 adminRouter.get('/',function(req,res){
    
 
-    imgModel.find({}, (err, items) => {
+  BookdataModel.find({}, (err, items) => {
       if (err) {
           console.log(err);
           res.status(500).send('An error occurred', err);
@@ -85,12 +85,12 @@ adminRouter.post('/add',upload.single(`image`), function(req,res){
       contentType: 'image/png',
   }
   }
-  imgModel.create(item, (err, item) => {
+  BookdataModel.create(item, (err, item) => {
     if (err) {
         console.log(err);
     }
     else {
-      var book=Bookdata(item);
+      var book=BookdataModel(item);
       book.save();
       res.redirect('/books');
     }
