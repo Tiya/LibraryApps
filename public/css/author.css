@@ -1,0 +1,24 @@
+.card-deck{
+    padding-top: 5%;
+    opacity: .95;
+    padding-left: 75px;
+    padding-right: 75px;
+}
+
+.author{
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.author img{
+
+    /* width: 200px;  */
+    height: 500px;
+    object-fit: cover;
+}
+
+img {
+    width: 200px; 
+    height: 300px;
+    object-fit: cover;
+}

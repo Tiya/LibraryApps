@@ -83,7 +83,7 @@ adminRouter.post('/add',upload.single(`image`), function(req,res){
     image: {
       data: fs.readFileSync(path.join('../LibraryApps/public/uploads/images/' + req.file.filename)), 
       contentType: 'image/png',
-  }
+          }
   }
   BookdataModel.create(item, (err, item) => {
     if (err) {

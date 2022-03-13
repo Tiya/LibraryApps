@@ -1,5 +1,7 @@
 //Accessing Mongose package
 const mongoose=require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
+
 
 //Database connection
 // mongoose.connect('mongodb://localhost:27017/library');
@@ -13,7 +15,7 @@ const UserSchema=new Schema({
     password: String,
     phone: String,
 });
-
+UserSchema.plugin(passportLocalMongoose);
 //Model creation
 var Userdata= mongoose.model('userdata',UserSchema);
 module.exports=Userdata;

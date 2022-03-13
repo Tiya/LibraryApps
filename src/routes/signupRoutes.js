@@ -1,9 +1,7 @@
 var express=require("express");
-var bodyParser=require("body-parser");
+
 const signupRouter=express.Router();
 
-
-var app=express()
 
 var userDataModel = require('../model/Userdata');
 
@@ -19,7 +17,7 @@ function router(nav){
           else {
               res.render('signup',{
                 nav,
-                title:'Library'
+                title:'Register'
                 
             })
           }
