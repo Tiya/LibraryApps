@@ -120,18 +120,15 @@
                         <!--Text-->
                         <p class="card-text text-center"><%=author.about%></p>
         
-                        <form action="/authors/edit" method="POST">
+                        <form action="/authorslist/edit" method="POST">
                           <input type="hidden" name="id" value="<%=author._id%>">
                           <button id="editbtn" type="submit" class = "btn btn-success btn-sm" style="float: right;">Edit Author</button>
                           </form>
         
-                          <form action="/authors/delete" method="POST">
+                          <form action="/authorslist/delete" method="POST">
                           <input type="hidden" name="id" value="<%=author._id%>">
                           <button id="dltbtn" type="submit" class = "btn btn-danger btn-sm" style="float: right; margin-right: 25px">Delete Author</button>
                           </form>
-        
-        
-        
         
                 
                     </div>

@@ -29,7 +29,7 @@ function router(nav){
         .then(function(books){
           res.render("books",{
             nav,
-            title:"Library App",
+            title:"Books List",
             books
           });
         })
@@ -53,6 +53,20 @@ function router(nav){
         })
        
       });
+
+//router to delete book
+booksRouter.post('/delete', function (req, res) {
+
+  const id = req.body.id;  
+  
+  Bookdata.findOneAndDelete({ _id: id })
+    .then(function () {
+
+     res.redirect('/books')
+
+    })  
+  })
+
       return booksRouter;
 }
 

@@ -91,9 +91,12 @@
           
           <!--/stories-->
 
-           
-          <div class="row">    
-            <br>
+            <!-- Card 1 2 3 -->
+            <div class="card mb-4">
+                
+              <!--Card image-->
+              <div class="view overlay ">
+          
             <div class="col-md-2 col-sm-3 text-center">
            
               <a class="story-title" href="#">
@@ -114,16 +117,27 @@
               </div>
               <br><br>
             </div>
+             <!--Card content-->
+             <div class="card-body">
+                
+                <form action="/books/edit" method="POST">
+                <input type="hidden" name="id" value="<%=book._id%>">
+                <button id="editbtn" type="submit" class = "btn btn-success btn-sm" style="float: right;">Edit Author</button>
+                </form>
+
+                <form action="/books/delete" method="POST">
+                <input type="hidden" name="id" value="<%=book._id%>">
+                <button id="dltbtn" type="submit" class = "btn btn-danger btn-sm" style="float: right; margin-right: 25px">Delete Author</button>
+                </form>
+
+      
           </div>
-        
+          </div>
+            </div>
           <hr>
   
           <!--/stories-->
-          
-          
-          <a href="/" class="btn btn-primary pull-right btnNext">More <i class="glyphicon glyphicon-chevron-right"></i></a>
-        
-          
+         
         </div>
       </div>
                                                                                        

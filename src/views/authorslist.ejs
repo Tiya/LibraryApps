@@ -98,7 +98,8 @@
             <div class="col-md-2 col-sm-3 text-center">
               <a class="story-title" href="#">
               
-                <img src="data:<%=authors[i].image.contentType%>;base64,<%=authors[i].image.data.toString('base64')%>"  style="width:100px;height:100px" class="img-circle">
+                <img src="data:<%=authors[i].image.contentType%>;base64,{Buffer.from('<%=authors[i].image.data%>','binary').toString('base64')}"  style="width:100px;height:100px" class="img-circle">
+
             
               </a>
           
@@ -107,7 +108,8 @@
               <h3><%=authors[i].title%></h3>
               <div class="row">
                 <div class="col-xs-9">
-                  <!-- <h4><span class="label label-default"><%=authors[i].about%></span></h4><h4> -->
+                  <h4><span class="label label-default"><%=authors[i].author%></span></h4><h4>
+                  <small style="font-family:courier,'new courier';" class="text-muted"><%=authors[i].genre%> 
                     <a href="/authorslist/<%=authors[i]._id%>" class="text-muted">Read More</a></small>
                   </h4></div>
                 <div class="col-xs-3"></div>
@@ -118,11 +120,7 @@
           <%}%>
           <hr>
   
-          <!--/stories-->
-          
-          
-          <a href="/" class="btn btn-primary pull-right btnNext">More <i class="glyphicon glyphicon-chevron-right"></i></a>
-        
+          <!--/stories-->        
           
         </div>
       </div>
