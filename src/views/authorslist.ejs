@@ -98,7 +98,7 @@
             <div class="col-md-2 col-sm-3 text-center">
               <a class="story-title" href="#">
               
-                <img src="data:<%=authors[i].image.contentType%>;base64,{Buffer.from('<%=authors[i].image.data%>','binary').toString('base64')}"  style="width:100px;height:100px" class="img-circle">
+                <img src="data:<%=authors[i].image.contentType%>;base64,<%=authors[i].image.data.toString('base64')%>"  style="width:100px;height:100px" class="img-circle">
 
             
               </a>
