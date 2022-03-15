@@ -3,15 +3,15 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<meta charset="utf-8">
-		<title>Books</title>
+		<title>Edit Books</title>
 		<meta name="generator" content="Bootply" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="/css/bootstrap.min.css" rel="stylesheet">
 		<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
 		<!--[if lt IE 9]>
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-		<link href="css/styles.css" rel="stylesheet">
+		<link href="/css/styles.css" rel="stylesheet">
 	</head>
 	<body>
 <header class="navbar navbar-bright navbar-fixed-top" role="banner">
@@ -51,7 +51,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-7">
-        <h1>Books
+        <h1>Edit Book
           <p class="lead"></p>
         </h1>
       </div>
@@ -89,37 +89,44 @@
           
           
           
-          <!--/stories-->
-          <%for(i=0;i<books.length;i++){%>
+ <!-- Default form contact -->
+<form class="container editbook text-center border border-light p-5 justify-content-center"  enctype='multipart/form-data'
+ action="/books/update" method="POST">
 
-           
-          <div class="row">    
-            <br>
-            <div class="col-md-2 col-sm-3 text-center">
-              <a class="story-title" href="#">
-              
-                <img src="data:<%=books[i].image.contentType%>;base64,<%=books[i].image.data.toString('base64')%>"  style="width:100px;height:100px" class="img-circle">
-            
-              </a>
-          
-            </div>
-            <div class="col-md-10 col-sm-9">
-              <h3><%=books[i].title%></h3>
-              <div class="row">
-                <div class="col-xs-9">
-                  <h4><span class="label label-default"><%=books[i].author%></span></h4><h4>
-                  <small style="font-family:courier,'new courier';" class="text-muted"><%=books[i].genre%> 
-                    <a href="/books/<%=books[i]._id%>" class="text-muted">Read More</a></small>
-                  </h4></div>
-                <div class="col-xs-3"></div>
-              </div>
-              <br><br>
-            </div>
-          </div>
-          <%}%>
-          <hr>
-  
-          <!--/books listing-->
+
+
+    <p class="h4 mb-4">Edit Book Form</p>
+
+    <!-- Title -->
+    <input id="title" name="title" type="text" value="<%=book.title%>"  class="form-control mb-4" placeholder="Book Name">
+
+    <br>
+    <!-- Author -->
+    <input id="author" name="author" type="text" value="<%=book.author%>"  class="form-control mb-4" placeholder="Author Name">
+
+    <br>
+    <!-- genre -->
+    <div class="form-group">
+        <input id="genre" value="<%=book.genre%>" name="genre" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" placeholder="About Book (less than 150 words)">
+    </div>
+    <br>
+    <!-- Image -->
+    <input id="image" name="image" type="file" value="data:<%=book.image.contentType%>;base64,<%=book.image.data.toString('base64')%>"  class="form-control mb-4" placeholder="Upload Image">
+
+
+    <br>
+    <br>
+    <!-- Send button -->
+   
+    <input type="hidden" name="id" value="<%=book._id%>">
+    <button id="updatebtn" class="btn btn-success" type="submit">Update Book</button>
+     
+</form>
+<!-- Default form contact -->
+
+    <br>
+
+   
           
         </div>
       </div>
@@ -173,6 +180,5 @@
 	<!-- script references -->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
-    <script src="js/script.js"></script>
 	</body>
 </html>

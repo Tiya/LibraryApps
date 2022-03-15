@@ -4,10 +4,7 @@ const BookdataModel=require('../model/Bookdata')
 const multer = require('multer');
 const path = require('path');
 var fs = require('fs');
-const {
-  GridFsStorage
-} = require("multer-gridfs-storage");
- 
+
 require("dotenv")
   .config();
 
