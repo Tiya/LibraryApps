@@ -2,9 +2,12 @@ var express=require("express");
 var passport = require("passport");
 var LocalStrategy = require("passport-local");
 var passportLocalMongoose = require("passport-local-mongoose");
-var User = require('../model/Userdata');
+
+const admin = require('../data/adminUser');
+const users = require('../data/users');
 
 const loginRouter=express.Router();
+
 // loginRouter.use(require("express-session")({
 //     secret: "Rusty is a dog",
 //     resave: false,
@@ -32,12 +35,61 @@ loginRouter.get("/", function (req, res) {
 });
  
 //Handling user login
-loginRouter.post("/", passport.authenticate("local", {
-    successRedirect: "books",
-    failureRedirect: "login"
-}), function (req, res) {
+// loginRouter.post("/", passport.authenticate("local", {
+//     successRedirect: "home",
+//     failureRedirect: "login"
+// }), function (req, res) {
+// });
+loginRouter.post("/sign",function(req,res){
+var checkuser = {
+    uid:req.body.email,
+    pwd:req.body.password
+};
+
+console.log(checkuser);
+var adminflag=false;
+var userflag=false;
+
+//    var flagg = user.find((e)=>{
+   for(let i=0;i<admin.length;i++){
+    
+    if(checkuser.uid==admin[i].uid && checkuser.pwd==admin[i].pwd)
+    {
+        
+        adminflag=true;
+        break;
+    }else if(checkuser.uid==users[i].uid && checkuser.pwd==users[i].pwd)
+    {
+        
+        userflag=true;
+        break;
+    }else{
+
+        adminflag=false;
+        userflag=false;
+
+    }
+    };
+
+    console.log(adminflag);
+    console.log(userflag);
+
+if(adminflag==true){
+console.log("Admin Verified.Click to continue");
+res.redirect("/home");
+}else if(userflag==true){
+    console.log("user Verified.Click to continue");
+    res.redirect("/userhome");
+}
+else{
+// alert("User Verification Failed");
+res.redirect("/signup");
+}
+
 });
- 
+
+
+
 //Handling user logout
 loginRouter.get("/logout", function (req, res) {
     req.logout();

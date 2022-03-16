@@ -1,0 +1,17 @@
+.navbar{
+    background-color: #00264C!important;
+  }
+  .nav-link{
+     color: white!important;
+  }
+  
+  footer{
+    background-color: black;
+    color: white;
+    text-align: center;
+    height: 5%;
+    padding: 1%;  
+    bottom:0;
+    }
+    
+  
