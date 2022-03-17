@@ -6,40 +6,36 @@ var passportLocalMongoose = require("passport-local-mongoose");
 const admin = require('../data/adminUser');
 const users = require('../data/users');
 
+const UserdataModel=require('../model/Userdata')
+
 const loginRouter=express.Router();
 
-// loginRouter.use(require("express-session")({
-//     secret: "Rusty is a dog",
-//     resave: false,
-//     saveUninitialized: false
-// }));
+//using passport
+loginRouter.use(require("express-session")({
+    secret: "Rusty is a dog",
+    resave: false,
+    saveUninitialized: true
+}));
  
-// loginRouter.use(passport.initialize());
-// loginRouter.use(passport.session());
+loginRouter.use(passport.initialize());
+loginRouter.use(passport.session());
  
-// passport.use(new LocalStrategy(User.authenticate()));
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
+passport.use(new LocalStrategy(UserdataModel.authenticate()));
+passport.serializeUser(UserdataModel.serializeUser());
+passport.deserializeUser(UserdataModel.deserializeUser());
+
 function router(nav){
-// Showing secret page
-loginRouter.get("/secret", isLoggedIn, function (req, res) {
-    res.render("secret");
-});
+//using without passport
 
 //Showing login form
 loginRouter.get("/", function (req, res) {   
             res.render('login',{
               nav,
               title:'LogIn'             
-          })     
+          })   
+            
 });
  
-//Handling user login
-// loginRouter.post("/", passport.authenticate("local", {
-//     successRedirect: "home",
-//     failureRedirect: "login"
-// }), function (req, res) {
-// });
 loginRouter.post("/sign",function(req,res){
 var checkuser = {
     uid:req.body.email,
@@ -50,7 +46,6 @@ console.log(checkuser);
 var adminflag=false;
 var userflag=false;
 
-//    var flagg = user.find((e)=>{
    for(let i=0;i<admin.length;i++){
     
     if(checkuser.uid==admin[i].uid && checkuser.pwd==admin[i].pwd)
@@ -82,13 +77,10 @@ res.redirect("/home");
     res.redirect("/userhome");
 }
 else{
-// alert("User Verification Failed");
 res.redirect("/signup");
 }
 
 });
-
-
 
 //Handling user logout
 loginRouter.get("/logout", function (req, res) {
@@ -96,10 +88,9 @@ loginRouter.get("/logout", function (req, res) {
     res.redirect("/");
 });
  
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) return next();
-    res.redirect("/login");
-}
+// using passport
+
+
 return loginRouter;
 }
 module.exports=router;    
