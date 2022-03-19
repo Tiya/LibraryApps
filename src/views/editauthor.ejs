@@ -103,18 +103,18 @@ method="POST" enctype='multipart/form-data'>
   <p class="h4 mb-4">Edit Author Form</p>
 
   <!-- Title -->
-  <input id="title" name="title" type="text" value="<%=author.title%>" class="form-control mb-4" placeholder="Author Name">
+  <input id="title" name="title" type="text" value="<%=author.title%>" class="form-control mb-4" placeholder="Author Name" required>
 
  
   <br>
   <!-- Image -->
-  <input id="image" name="image" type="file" value="data:<%=author.image.contentType%>;base64,<%=author.image.data.toString('base64')%>" class="form-control mb-4" placeholder="Upload Image">
+  <input id="image" name="image" type="file" value="data:<%=author.image.contentType%>;base64,<%=author.image.data.toString('base64')%>" class="form-control mb-3" placeholder="Upload Image" required>
 
 
   <br>
   <!-- About -->
   <div class="form-group">
-      <input id="about" name="about" value="<%=author.about%>" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" placeholder="About Author (less than 150 words)">
+      <input id="about" name="about" value="<%=author.about%>" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" placeholder="About Author (less than 150 words)" required>
   </div>
 
   <br>

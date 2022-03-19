@@ -12,7 +12,9 @@ body {
 h1,h2,h3,.highlight,.navbar a,#masthead h4 {
   font-family:'Oswald',arial narrow,sans-serif;
 }
-
+.form-control{
+  width: 90%!important;
+}
 footer {
 
   margin-top:40px;

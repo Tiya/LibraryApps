@@ -140,6 +140,7 @@ authorlistRouter.post('/update', upload.single('image'), function (req, res) {
         res.json({ status: "No match Found" });
     }
     else {
+      console.log(updates);
         res.redirect("/authorslist")
     }
 

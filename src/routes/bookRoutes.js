@@ -71,7 +71,8 @@ function router(nav){
           res.render('book',{
             nav,
             title:"Library",
-            book
+            book,
+            user:true,
           });
         })
        
