@@ -4,6 +4,9 @@ const path = require('path');
 
 const nav=[
   {
+    link:'/home',name:'Home'
+  },
+  {
     link:'/books',name:'Books'
   },
   {
@@ -14,9 +17,6 @@ const nav=[
   },
   {
     link:'/addauthor',name: 'Add Authors'
-  },
-  {
-    link:'/signup',name: 'User Registration'
   },
   {
     link:'/login',name: 'Logout'
@@ -34,12 +34,14 @@ const navPublic=[
 ];
 
 const navUser=[
- 
   {
-    link:'/books',name:'Books'
+    link:'/userhome',name:'Home'
   },
   {
-    link:'/authorslist',name: 'Authors'
+    link:'/userhome/books',name:'Books'
+  },
+  {
+    link:'/userhome/authorslist',name: 'Authors'
   },
   {
     link:'/login',name: 'Logout'
@@ -54,6 +56,8 @@ const authorsRouter=require('./src/routes/authorsRoutes')(nav)
 const authorslistRouter=require('./src/routes/authorslistRoutes')(nav)
 const homeRouter = require('./src/routes/homeroute')(nav)
 const userhomeRouter = require('./src/routes/userhomeroute')(navUser)
+const userhomeBookRouter = require('./src/routes/adminRoutes')(navUser)
+const userhomeAuthorRouter = require('./src/routes/authorslistRoutes')(navUser)
 
 app.use(express.urlencoded({extended:true}));
 app.use(express.static('./public'));
@@ -67,6 +71,8 @@ app.use('/addauthor', authorsRouter);
 app.use('/authorslist', authorslistRouter);
 app.use('/home',homeRouter); 
 app.use('/userhome',userhomeRouter); 
+app.use('/userhome/books', userhomeBookRouter);
+app.use('/userhome/authorslist', userhomeAuthorRouter);
 
 
 

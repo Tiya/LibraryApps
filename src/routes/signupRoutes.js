@@ -17,23 +17,22 @@ function router(nav){
           else {
               res.render('signup',{
                 nav,
-                title:'Register'
-                
+                title:'Register',
+                success: req.query.success
             })
           }
       });
     })
 
-    signupRouter.post('/register', function(req,res){
+    signupRouter.post('/register', function(req,res,next){
     // res.send("Hey I am Added");
-   
+   try{
     var item={
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
-      phone: req.body.phone
+     
     }
-
     userDataModel.create(item, (err, item) => {
       if (err) {
           console.log(err);
@@ -41,10 +40,18 @@ function router(nav){
       else {
           console.log(item);
         var user=userDataModel(item);
-        user.save();
-        res.redirect('/books');
+        const savedUser= user.save();
+        if(savedUser){
+        return res.redirect('/login?success=true');
+        }else{
+          return next(new Error('Failed to save user'));
+        }
       }
   });
+  }catch(err){
+    return next(err);
+  }
+    
 });
   return signupRouter;
 }

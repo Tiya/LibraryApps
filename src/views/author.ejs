@@ -121,7 +121,8 @@
                         <!-- <h4 class="card-title"><center><%=author.title%></center></h4> -->
                         <!--Text-->
                         <p class="card-text text-center"><%=author.about%></p>
-        
+                        <% if(user) { %>
+                          
                         <form action="/authorslist/edit" method="POST">
                           <input type="hidden" name="id" value="<%=author._id%>">
                           <button id="editbtn" type="submit" class = "btn btn-success btn-sm" style="float: right;">Edit Author</button>
@@ -131,7 +132,18 @@
                           <input type="hidden" name="id" value="<%=author._id%>">
                           <button id="dltbtn" type="submit" class = "btn btn-danger btn-sm" style="float: right; margin-right: 25px">Delete Author</button>
                           </form>
-        
+                          <%} else { %>
+
+                            <form action="/authorslist/edit" method="POST" class="hidden">
+                              <input type="hidden" name="id" value="<%=author._id%>">
+                              <button id="editbtn" type="submit" class = "btn btn-success btn-sm" style="float: right;">Edit Author</button>
+                              </form>
+            
+                              <form action="/authorslist/delete" method="POST" class="hidden">
+                              <input type="hidden" name="id" value="<%=author._id%>">
+                              <button id="dltbtn" type="submit" class = "btn btn-danger btn-sm" style="float: right; margin-right: 25px">Delete Author</button>
+                              </form>
+                            <% } %>
                 
                     </div>
                 

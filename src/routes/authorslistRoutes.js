@@ -58,7 +58,8 @@ function router(nav){
           res.render("authorslist",{
             nav,
             title:"Authors List",
-            authors
+            authors,
+            user:true,
           });
         })  
       });
@@ -75,7 +76,8 @@ function router(nav){
           res.render('author',{
             nav,
             title:"Library",
-            author
+            author,
+            user:true,
           });
         })
        

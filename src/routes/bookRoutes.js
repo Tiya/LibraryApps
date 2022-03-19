@@ -56,7 +56,8 @@ function router(nav){
           res.render("books",{
             nav,
             title:"Books List",
-            books
+            books,
+            user:true,
           });
         })
         

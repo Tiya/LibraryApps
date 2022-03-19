@@ -1,8 +1,9 @@
 .navbar{
-    background-color: #00264C!important;
+    background-color: #111166!important;
   }
   .nav-link{
      color: white!important;
+     size: 16px!important;
   }
   
   footer{
