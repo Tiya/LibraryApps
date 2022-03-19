@@ -25,7 +25,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href="/" class="navbar-brand">Home</a>
+     
     </div>
     <nav class="collapse navbar-collapse" role="navigation">
       <ul class="nav navbar-nav">
@@ -121,7 +121,7 @@
             </div>
              <!--Card content-->
              <div class="card-body">
-                
+              <% if(user) { %>
                 <form action="/books/edit" method="POST">
                 <input type="hidden" name="id" value="<%=book._id%>">
                 <button id="editbtn" type="submit" class = "btn btn-success btn-sm" style="float: right;">Edit Book</button>
@@ -131,7 +131,17 @@
                 <input type="hidden" name="id" value="<%=book._id%>">
                 <button id="dltbtn" type="submit" class = "btn btn-danger btn-sm" style="float: right; margin-right: 25px">Delete Book</button>
                 </form>
-
+                <%} else { %>
+                  <form action="/books/edit" method="POST" class="hidden">
+                    <input type="hidden" name="id" value="<%=book._id%>">
+                    <button id="editbtn" type="submit" class = "btn btn-success btn-sm" style="float: right;">Edit Book</button>
+                    </form>
+    
+                    <form action="/books/delete" method="POST" class="hidden">
+                    <input type="hidden" name="id" value="<%=book._id%>">
+                    <button id="dltbtn" type="submit" class = "btn btn-danger btn-sm" style="float: right; margin-right: 25px">Delete Book</button>
+                    </form>
+                  <% } %>
       
           </div>
           </div>

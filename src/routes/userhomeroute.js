@@ -33,10 +33,11 @@ userhomeRouter.get('/books',function(req,res){
     const id=req.params.id;
      Bookdata.findOne({_id:id})
      .then(function(book){
-       res.render('userbooks',{
+       res.render('book',{
          nav,
          title:"Library",
-         book
+         book,
+         user:false,
        });
      })
     

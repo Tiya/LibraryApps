@@ -24,7 +24,9 @@ const nav=[
 ];
 
 const navPublic=[
- 
+  {
+    link:'/',name:'Home'
+  },
   {
     link:'/signup',name: 'User Registration'
   },
