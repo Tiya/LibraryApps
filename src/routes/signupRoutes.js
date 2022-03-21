@@ -2,23 +2,48 @@ var express=require("express");
 
 const signupRouter=express.Router();
 
+const session = require('express-session');
+const flash = require('connect-flash');
 
 var userDataModel = require('../model/Userdata');
 
+signupRouter.use(session({
+  secret:'tiyamartin',
+  saveUninitialized: true,
+  resave: true,
+  cookie: { maxAge: 60000 }
+}));
+signupRouter.use(flash());
+
+signupRouter.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
+
 function router(nav){
+  signupRouter.get('/login',function(req,res){
+
+    res.render('login',{
+      message: req.flash("success"),
+      nav,
+      title:'Login',
+    })
+  });
+
     signupRouter.get('/',function(req,res){
        
     
       userDataModel.find({}, (err, items) => {
           if (err) {
-              console.log(err);
-              res.status(500).send('An error occurred', err);
+              console.log(err.code);
+              res.status(500).send('An error occurred', err);          
           }
           else {
               res.render('signup',{
                 nav,
                 title:'Register',
-                success: req.query.success
+                message: req.flash('success'),
             })
           }
       });
@@ -42,9 +67,10 @@ function router(nav){
         var user=userDataModel(item);
         const savedUser= user.save();
         if(savedUser){
-        return res.redirect('/login?success=true');
-        }else{
-          return next(new Error('Failed to save user'));
+          req.flash('success', 'Registration successfully');
+          res.locals.message = req.flash();
+          console.log(res.locals.message);
+          res.redirect('/login');
         }
       }
   });
@@ -53,6 +79,7 @@ function router(nav){
   }
     
 });
+
   return signupRouter;
 }
   

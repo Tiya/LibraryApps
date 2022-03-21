@@ -1,6 +1,9 @@
 const express=require(`express`);
 const app=express();
 const path = require('path');
+const session = require('express-session');
+const flash = require('connect-flash');
+
 
 const nav=[
   {
@@ -77,7 +80,12 @@ app.use('/userhome/books', userhomeBookRouter);
 app.use('/userhome/authorslist', userhomeAuthorRouter);
 
 
-
+app.use(session({
+  secret:'tiyamartin',
+  saveUninitialized: true,
+  resave: true
+}));
+app.use(flash());
 app.get('/',function(req,res){
   //  res.send("Hello Welcome!!");
  // res.sendFile(__dirname+"/src/views/index.html")

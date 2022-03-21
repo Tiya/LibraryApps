@@ -20,9 +20,7 @@ loginRouter.use(require("express-session")({
 loginRouter.use(passport.initialize());
 loginRouter.use(passport.session());
  
-passport.use(new LocalStrategy(UserdataModel.authenticate()));
-passport.serializeUser(UserdataModel.serializeUser());
-passport.deserializeUser(UserdataModel.deserializeUser());
+
 
 function router(nav){
 //using without passport
@@ -45,40 +43,64 @@ var checkuser = {
 console.log(checkuser);
 var adminflag=false;
 var userflag=false;
+const userExist = UserdataModel.findOne({ email: checkuser.uid }, {password: checkuser.pwd });
 
-   for(let i=0;i<admin.length;i++){
-    
-    if(checkuser.uid==admin[i].uid && checkuser.pwd==admin[i].pwd)
-    {
-        
-        adminflag=true;
-        break;
-    }else if(checkuser.uid==users[i].uid && checkuser.pwd==users[i].pwd)
-    {
-        
-        userflag=true;
-        break;
-    }else{
-
-        adminflag=false;
-        userflag=false;
-
-    }
-    };
-
-    console.log(adminflag);
-    console.log(userflag);
-
-if(adminflag==true){
-console.log("Admin Verified.Click to continue");
-res.redirect("/home");
-}else if(userflag==true){
+if(userExist){
     console.log("user Verified.Click to continue");
     res.redirect("/userhome");
+
+}else{
+    if(admin.length!=0){
+    for(let i=0;i<admin.length;i++){
+    {
+        if(checkuser.uid==admin[i].uid && checkuser.pwd==admin[i].pwd){
+            console.log("Admin Verified.Click to continue");
+            res.redirect("/home");
+        }
+    }
 }
-else{
-res.redirect("/signup");
+    }else{
+        res.redirect("/signup");
+        }
 }
+
+// UserdataModel.findOne({_id:id}).then(function(userslist){
+//    for(let i=0;i<userslist.length;i++){
+//     console.log(userslist);
+//     console.log(userslist.length);
+//     console.log(userslist.email);
+//     console.log(userslist.password);
+//     if(checkuser.uid==admin[i].uid && checkuser.pwd==admin[i].pwd)
+//     {
+        
+//         adminflag=true;
+//         break;
+//     }else if(checkuser.uid==userslist[i].email && checkuser.pwd==userslist[i].password)
+//     {
+        
+//         userflag=true;
+//         break;
+//     }else{
+
+//         adminflag=false;
+//         userflag=false;
+
+//     }
+//     };
+// });
+//     console.log(adminflag);
+//     console.log(userflag);
+
+// if(adminflag==true){
+// console.log("Admin Verified.Click to continue");
+// res.redirect("/home");
+// }else if(userflag==true){
+//     console.log("user Verified.Click to continue");
+//     res.redirect("/userhome");
+// }
+// else{
+// res.redirect("/signup");
+// }
 
 });
 

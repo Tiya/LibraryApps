@@ -84,6 +84,10 @@
 <div class="container">
   <div class="panel">
     <div class="panel-body">
+      <% if(locals.message){ %>
+        <div class="alert alert-success"> <%=message.success[0]%></div>
+       <%}%>
+      
     <form action="/login/sign" method="POST" style="margin: 0 auto; width:60%" 
     class="text-center border border-light p-5 justify-content-center">
         <input class="form-control mb-4" type="text" name="email"
