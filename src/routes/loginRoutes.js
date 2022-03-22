@@ -73,63 +73,6 @@ UserdataModel.find().then(function(userdata){
     
 });
 
-// if(userk){
-//     console.log("user Verified.Click to continue");
-//     res.redirect("/userhome");
-
-// }else{
-//     if(admin.length!=0){
-//     for(let i=0;i<admin.length;i++){
-//     {
-//         if(checkuser.uid==admin[i].uid && checkuser.pwd==admin[i].pwd){
-//             console.log("Admin Verified.Click to continue");
-//             res.redirect("/home");
-//         }
-//     }
-// }
-//     }else{
-//         res.redirect("/signup");
-//         }
-// }
-// });
-// UserdataModel.findOne({_id:id}).then(function(userslist){
-//    for(let i=0;i<userslist.length;i++){
-//     console.log(userslist);
-//     console.log(userslist.length);
-//     console.log(userslist.email);
-//     console.log(userslist.password);
-//     if(checkuser.uid==admin[i].uid && checkuser.pwd==admin[i].pwd)
-//     {
-        
-//         adminflag=true;
-//         break;
-//     }else if(checkuser.uid==userslist[i].email && checkuser.pwd==userslist[i].password)
-//     {
-        
-//         userflag=true;
-//         break;
-//     }else{
-
-//         adminflag=false;
-//         userflag=false;
-
-//     }
-//     };
-// });
-//     console.log(adminflag);
-//     console.log(userflag);
-
-// if(adminflag==true){
-// console.log("Admin Verified.Click to continue");
-// res.redirect("/home");
-// }else if(userflag==true){
-//     console.log("user Verified.Click to continue");
-//     res.redirect("/userhome");
-// }
-// else{
-// res.redirect("/signup");
-// }
-
 });
 
 //Handling user logout
@@ -138,9 +81,6 @@ loginRouter.get("/logout", function (req, res) {
     res.redirect("/");
 });
  
-// using passport
-
-
 return loginRouter;
 }
 module.exports=router;    
