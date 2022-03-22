@@ -2,7 +2,6 @@
 @import url('http://fonts.googleapis.com/css?family=Oswald:300,400:latin,latin-ext');
 
 
-
 body {
   padding-top:50px;
   color:#646464;
@@ -20,7 +19,8 @@ footer {
   margin-top:40px;
   padding-top:40px;
   padding-bottom:40px;
-  background-color:#cecece;
+  background-color:#301910;
+  color: white;
  
 }
 .main{
@@ -98,7 +98,7 @@ input[type=submit] {
 }
 
 a,a:hover {
-  color:#223344;
+  color:white;
   text-decoration:none;
 }
 
