@@ -43,27 +43,55 @@ var checkuser = {
 console.log(checkuser);
 var adminflag=false;
 var userflag=false;
-const userExist = UserdataModel.findOne({ email: checkuser.uid }, {password: checkuser.pwd });
-
-if(userExist){
-    console.log("user Verified.Click to continue");
-    res.redirect("/userhome");
-
-}else{
-    if(admin.length!=0){
+UserdataModel.find().then(function(userdata){
     for(let i=0;i<admin.length;i++){
-    {
         if(checkuser.uid==admin[i].uid && checkuser.pwd==admin[i].pwd){
-            console.log("Admin Verified.Click to continue");
-            res.redirect("/home");
+            adminflag=true;
+            break;
         }
     }
-}
-    }else{
+    for(let i=0;i<userdata.length;i++){
+        if(checkuser.uid==userdata[i].email && checkuser.pwd==userdata[i].password){
+            userflag=true;
+            break;
+        }
+    }
+   
+        console.log(adminflag);
+        console.log(userflag);
+        
+        if(adminflag==true){
+        console.log("Admin Verified.Click to continue");
+        res.redirect("/home");
+        }else if(userflag==true){
+            console.log("user Verified.Click to continue");
+            res.redirect("/userhome");
+        }
+        else{
         res.redirect("/signup");
         }
-}
+    
+});
 
+// if(userk){
+//     console.log("user Verified.Click to continue");
+//     res.redirect("/userhome");
+
+// }else{
+//     if(admin.length!=0){
+//     for(let i=0;i<admin.length;i++){
+//     {
+//         if(checkuser.uid==admin[i].uid && checkuser.pwd==admin[i].pwd){
+//             console.log("Admin Verified.Click to continue");
+//             res.redirect("/home");
+//         }
+//     }
+// }
+//     }else{
+//         res.redirect("/signup");
+//         }
+// }
+// });
 // UserdataModel.findOne({_id:id}).then(function(userslist){
 //    for(let i=0;i<userslist.length;i++){
 //     console.log(userslist);
