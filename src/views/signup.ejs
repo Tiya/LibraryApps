@@ -93,14 +93,16 @@
     class="text-center border border-light p-5 justify-content-center">
 						
 		<input class="form-control mb-4" type="text" name="name" id="name"
-		placeholder="Name" required /><br>
-						
-		<input class="form-control mb-4" type="email" name="email" id="email"
-		placeholder="E-Mail " required /><br>
-						
+		placeholder="Name"  value="<%=(typeof inputData!='undefined')? inputData.name:''%>"  /><br>
+    <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.name!='undefined' )? errors.name.msg:''%></p>
+		
+    <input class="form-control mb-4" type="email" name="email" id="email"
+		placeholder="E-Mail" value="<%=(typeof inputData!='undefined')? inputData.email:''%>" /><br>
+    <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.email!='undefined' )? errors.email.msg:''%></p>
+
 		<input class="form-control mb-4" type="password" name="password"
-		id="password" placeholder="Password " required/><br>
-						
+		id="password" placeholder="Password " /><br>
+						<p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.password!='undefined' )? errors.password.msg:''%></p>
 		
 					<br>
 		<button type="submit" id="submitDetails"

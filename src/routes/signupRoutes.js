@@ -1,25 +1,12 @@
 var express=require("express");
-
+var alert = require('alert');
+const validationRule= require('../middlewares/validation-rule');
 const signupRouter=express.Router();
+const { validationResult, matchedData } = require('express-validator');
 
-const session = require('express-session');
-const flash = require('connect-flash');
+signupRouter.use(express.static('./public'));
 
 var userDataModel = require('../model/Userdata');
-
-signupRouter.use(session({
-  secret:'tiyamartin',
-  saveUninitialized: true,
-  resave: true,
-  cookie: { maxAge: 60000 }
-}));
-signupRouter.use(flash());
-
-signupRouter.use((req, res, next) => {
-  res.locals.success = req.flash("success");
-  res.locals.error = req.flash("error");
-  next();
-});
 
 function router(nav){
   signupRouter.get('/login',function(req,res){
@@ -43,40 +30,59 @@ function router(nav){
               res.render('signup',{
                 nav,
                 title:'Register',
-                message: req.flash('success'),
             })
           }
       });
     })
 
-    signupRouter.post('/register', function(req,res,next){
+    signupRouter.post('/register', validationRule.form, function(req,res){
     // res.send("Hey I am Added");
-   try{
-    var item={
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
-     
-    }
-    userDataModel.create(item, (err, item) => {
-      if (err) {
-          console.log(err);
+  
+      const errors= validationResult(req);
+      if(!errors.isEmpty()){
+        var errMsg= errors.mapped();
+        var inputData = matchedData(req);  
+        res.render('signup', {
+          errors:errMsg, 
+          inputData:inputData,
+          title:"Register",
+          nav
+        });
+  
+       }else{
+          var inputData = matchedData(req);  
+         // insert query will be written here
+         
+          var item={
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+           
+          }
+          userDataModel.create(item, (err, item) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log(item);
+              var user=userDataModel(item);
+              const savedUser= user.save();
+              if(savedUser){
+                
+                alert('User registered successfully');
+                return res.redirect('/login');
+                
+                
+              }
+            }
+        });
+       
       }
-      else {
-          console.log(item);
-        var user=userDataModel(item);
-        const savedUser= user.save();
-        if(savedUser){
-          req.flash('success', 'Registration successfully');
-          res.locals.message = req.flash();
-          console.log(res.locals.message);
-          res.redirect('/login');
-        }
-      }
-  });
-  }catch(err){
-    return next(err);
-  }
+      
+  
+
+    //validation
+  
     
 });
 
