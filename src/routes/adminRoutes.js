@@ -60,7 +60,7 @@ adminRouter.get('/',function(req,res){
       }
       else {
           //res.render('imagesPage', { items: items });
-          res.render('addBook',{
+          res.render('addbook',{
             nav,
             title:'Library'
             
