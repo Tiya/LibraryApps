@@ -91,9 +91,12 @@
     <form action="/login/sign" method="POST" style="margin: 0 auto; width:60%" 
     class="text-center border border-light p-5 justify-content-center">
         <input class="form-control mb-4" type="text" name="email"
-            placeholder="Email">
+            placeholder="Email" value="<%=(typeof inputData!='undefined')? inputData.email:''%>" /><br>
+            <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.email!='undefined' )? errors.email.msg:''%></p>
         <input class="form-control mb-4" type="password" name="password"
             placeholder="Password">
+            <p style="color: red;"><%=(typeof errors!='undefined' && typeof errors.password!='undefined' )? errors.password.msg:''%></p>
+		
         <button  class="btn btn-success">Login</button>
     </form>
     </div>

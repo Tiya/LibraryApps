@@ -22,7 +22,7 @@ const nav=[
     link:'/addauthor',name: 'Add Authors'
   },
   {
-    link:'/login',name: 'Logout'
+    link:'/login/logout',name: 'Logout'
   }
 ];
 
@@ -49,7 +49,7 @@ const navUser=[
     link:'/userhome/authorslist',name: 'Authors'
   },
   {
-    link:'/login',name: 'Logout'
+    link:'/login/logout',name: 'Logout'
   }
 ];
 

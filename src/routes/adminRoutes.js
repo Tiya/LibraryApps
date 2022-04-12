@@ -4,7 +4,7 @@ const BookdataModel=require('../model/Bookdata')
 const multer = require('multer');
 const path = require('path');
 var fs = require('fs');
-
+var alert = require('alert');
 require("dotenv")
   .config();
 
@@ -89,6 +89,7 @@ adminRouter.post('/add',upload.single(`image`), function(req,res){
     else {
       var book=BookdataModel(item);
       book.save();
+      alert('Book '+book.title+' added successfully');
       res.redirect('/books');
     }
 });

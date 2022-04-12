@@ -1,10 +1,12 @@
 const express=require(`express`);
 const authorlistRouter=express.Router();
 const Authordata = require('../model/Authordata');
-
+var alert = require('alert');
 const path = require('path');
 var fs = require('fs');
 const multer = require('multer');
+
+var authorName;
  
 require("dotenv")
   .config();
@@ -55,6 +57,7 @@ function router(nav){
     authorlistRouter.get('/',function(req,res){
         Authordata.find()
         .then(function(authors){
+          
           res.render("authorslist",{
             nav,
             title:"Authors List",
@@ -71,8 +74,11 @@ function router(nav){
      
       authorlistRouter.get('/:id',function(req,res){
        const id=req.params.id;
+     
        Authordata.findOne({_id:id})
         .then(function(author){
+          authorName= author.title;
+          console.log(author.title)
           res.render('author',{
             nav,
             title:"Library",
@@ -91,7 +97,7 @@ function router(nav){
     
     Authordata.findOneAndDelete({ _id: id })
       .then(function () {
-  
+      alert(authorName+' deleted successfully');
        res.redirect('/authorslist')
   
       })  
@@ -133,6 +139,7 @@ authorlistRouter.post('/update', upload.single('image'), function (req, res) {
   
 
   Authordata.findByIdAndUpdate(req.body.id, { $set: updates },function (err, data) {
+    authorName=updates.title;
     if (err) {
         res.json({ status: "Failed" });
     }
@@ -141,6 +148,7 @@ authorlistRouter.post('/update', upload.single('image'), function (req, res) {
     }
     else {
       console.log(updates);
+      alert(authorName+' details updated successfully');
         res.redirect("/authorslist")
     }
 

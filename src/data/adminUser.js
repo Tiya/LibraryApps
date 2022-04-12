@@ -1,6 +1,6 @@
 var Adminusers=[{
     "id":1,
-    "uid":"admin",
+    "uid":"admin@gmail.com",
     "pwd":"admin"
 }
 ]

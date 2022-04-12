@@ -4,11 +4,11 @@ const Bookdata = require('../model/Bookdata');
 const multer = require('multer');
 const path = require('path');
 var fs = require('fs');
-
+var alert = require('alert');
 require("dotenv")
   .config();
 
-
+var bookName;
 // set up multer for storing uploaded files
 const storage=multer.diskStorage({
   //destination for files
@@ -68,6 +68,7 @@ function router(nav){
        const id=req.params.id;
         Bookdata.findOne({_id:id})
         .then(function(book){
+          bookName= book.title;
           res.render('book',{
             nav,
             title:"Library",
@@ -85,7 +86,7 @@ booksRouter.post('/delete', function (req, res) {
   
   Bookdata.findOneAndDelete({ _id: id })
     .then(function () {
-
+      alert(bookName+' deleted successfully');
      res.redirect('/books')
 
     })  
@@ -125,6 +126,7 @@ booksRouter.post('/delete', function (req, res) {
   }
   
   Bookdata.findByIdAndUpdate(req.body.id, { $set: updates },function (err, data) {
+    bookName=updates.title;
     if (err) {
         res.json({ status: "Failed" });
     }
@@ -132,6 +134,7 @@ booksRouter.post('/delete', function (req, res) {
         res.json({ status: "No match Found" });
     }
     else {
+      alert(bookName+' details updated successfully');
         res.redirect("/books")
     }
 

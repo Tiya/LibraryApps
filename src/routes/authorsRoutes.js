@@ -1,4 +1,5 @@
 const express = require('express'); 
+var alert = require('alert');
 const authorsRouter = express.Router();
 // const authors = require('../data/authors');
 const authordataModel = require('../model/Authordata');
@@ -90,6 +91,7 @@ authorsRouter.post('/add', upload.single(`image`),function (req, res) {
             console.log(item);
             const author = authordataModel(item);
             author.save();
+            alert(author.title+' details added successfully');
             res.redirect('/authorslist');
         }
     })

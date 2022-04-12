@@ -1,26 +1,15 @@
 var express=require("express");
-var passport = require("passport");
-var LocalStrategy = require("passport-local");
-var passportLocalMongoose = require("passport-local-mongoose");
+var alert = require('alert');
+const { check,sanitizeBody } = require('express-validator');
+const loginRouter=express.Router();
+const { validationResult, matchedData } = require('express-validator');
+
+loginRouter.use(express.static('./public'));
 
 const admin = require('../data/adminUser');
 const users = require('../data/users');
-
+var userName;
 const UserdataModel=require('../model/Userdata')
-
-const loginRouter=express.Router();
-
-//using passport
-loginRouter.use(require("express-session")({
-    secret: "Rusty is a dog",
-    resave: false,
-    saveUninitialized: true
-}));
- 
-loginRouter.use(passport.initialize());
-loginRouter.use(passport.session());
- 
-
 
 function router(nav){
 //using without passport
@@ -34,7 +23,25 @@ loginRouter.get("/", function (req, res) {
             
 });
  
-loginRouter.post("/sign",function(req,res){
+loginRouter.post("/sign", [
+check('email').notEmpty().withMessage('Email Address required').isEmail().withMessage('Email format incorrect'),
+check('password').trim().notEmpty().withMessage('Password required')
+], function(req,res){
+
+    const errors= validationResult(req);
+    if(!errors.isEmpty()){
+      var errMsg= errors.mapped();
+      var inputData = matchedData(req);  
+      res.render('login', {
+        errors:errMsg, 
+        inputData:inputData,
+        title:"Login",
+        nav
+      });
+    }else{
+        var inputData = matchedData(req);  
+       // insert query will be written here
+    
 var checkuser = {
     uid:req.body.email,
     pwd:req.body.password
@@ -47,12 +54,15 @@ UserdataModel.find().then(function(userdata){
     for(let i=0;i<admin.length;i++){
         if(checkuser.uid==admin[i].uid && checkuser.pwd==admin[i].pwd){
             adminflag=true;
+            userName='Admin';
             break;
         }
     }
     for(let i=0;i<userdata.length;i++){
         if(checkuser.uid==userdata[i].email && checkuser.pwd==userdata[i].password){
             userflag=true;
+            userName=userdata[i].name;
+            console.log(userName)
             break;
         }
     }
@@ -61,23 +71,26 @@ UserdataModel.find().then(function(userdata){
         console.log(userflag);
         
         if(adminflag==true){
-        console.log("Admin Verified.Click to continue");
+            alert(userName+' logged in successfully');
         res.redirect("/home");
         }else if(userflag==true){
-            console.log("user Verified.Click to continue");
+            alert(userName+' logged in successfully');
             res.redirect("/userhome");
         }
         else{
+            alert('Incorrect username or password. If not registered, please register here!!');
         res.redirect("/signup");
         }
     
 });
-
+    }
 });
 
 //Handling user logout
 loginRouter.get("/logout", function (req, res) {
-    req.logout();
+    console.log(userName);
+    alert(userName+' logged out successfully');
+    //req.logout();
     res.redirect("/");
 });
  
