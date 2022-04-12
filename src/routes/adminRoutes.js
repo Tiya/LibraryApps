@@ -48,7 +48,6 @@ function checkFileType(file, callback){
   }
 }
 
-
 function router(nav){
 adminRouter.get('/',function(req,res){
    
