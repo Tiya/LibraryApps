@@ -13,7 +13,7 @@ require("dotenv")
 const storage=multer.diskStorage({
   //destination for files
   destination:function(request,file,callback){
-    callback(null,'../LibraryApps/public/uploads/images');
+    callback(null,__dirname+'/LibraryApps/public/uploads/images');
   },
   //add back the extensions
   filename:function(request,file, callback){
@@ -78,7 +78,7 @@ adminRouter.post('/add',upload.single(`image`), function(req,res){
     genre: req.body.genre,
     //image: req.file.image,
     image: {
-      data: fs.readFileSync(path.join('../LibraryApps/public/uploads/images/' + req.file.filename)), 
+      data: fs.readFileSync(path.join(__dirname+'/LibraryApps/public/uploads/images/' + req.file.filename)), 
       contentType: 'image/png',
           }
   }
