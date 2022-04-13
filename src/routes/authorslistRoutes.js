@@ -10,12 +10,18 @@ var authorName;
  
 require("dotenv")
   .config();
+  var dir = './public/uploads';
 
+  if (!fs.existsSync(dir)){
+    console.log("new: "+dir);
+      fs.mkdirSync(dir);
+  }
+  console.log("old: "+dir);
 // set up multer for storing uploaded files
 const storage=multer.diskStorage({
     //destination for files
     destination:function(request,file,callback){
-      callback(null,'../LibraryApps/public/uploads/images');
+      callback(null,'../LibraryApps/public/uploads/');
     },
     //add back the extensions
     filename:function(request,file, callback){
@@ -129,7 +135,7 @@ authorlistRouter.post('/update', upload.single('image'), function (req, res) {
     var updates={
       title:req.body.title,
       image: {
-          data: fs.readFileSync(path.join('../LibraryApps/public/uploads/images/' + req.file.filename)), 
+          data: fs.readFileSync(path.join('../LibraryApps/public/uploads/' + req.file.filename)), 
           contentType: 'image/png',
               },
       about:req.body.about
