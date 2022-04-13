@@ -22,7 +22,7 @@ require("dotenv")
 const storage=multer.diskStorage({
     //destination for files
     destination:function(request,file,callback){
-      callback(null,'../LibraryApps/public/uploads/');
+      callback(null,'./public/uploads/');
     },
     //add back the extensions
     filename:function(request,file, callback){
@@ -85,7 +85,7 @@ authorsRouter.post('/add', upload.single(`image`),function (req, res) {
     var item={
         title:req.body.title,
         image: {
-            data: fs.readFileSync(path.join('../LibraryApps/public/uploads/' + req.file.filename)), 
+            data: fs.readFileSync(path.join('./public/uploads/' + req.file.filename)), 
             contentType: 'image/png',
                 },
         about:req.body.about

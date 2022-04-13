@@ -22,7 +22,7 @@ var dir = './public/uploads';
 const storage=multer.diskStorage({
   //destination for files
   destination:function(request,file,callback){
-    callback(null,'../LibraryApps/public/uploads/');
+    callback(null,'./public/uploads/');
   },
   //add back the extensions
   filename:function(request,file, callback){
@@ -128,7 +128,7 @@ booksRouter.post('/delete', function (req, res) {
       author: req.body.author,
       genre: req.body.genre,
       image: {
-        data: fs.readFileSync(path.join('../LibraryApps/public/uploads/' + req.file.filename)), 
+        data: fs.readFileSync(path.join('./public/uploads/' + req.file.filename)), 
         contentType: 'image/png',
             }
     }
