@@ -18,7 +18,7 @@ const storage=multer.diskStorage({
   //add back the extensions
   filename:function(request,file, callback){
   
-    callback(null,file.originalname);
+    callback(null,file.fieldname+Date.now()+path.extname(file.originalname));
   }
 })
 
@@ -70,7 +70,7 @@ adminRouter.get('/',function(req,res){
 
 adminRouter.post('/add',upload.single(`image`), function(req,res){
   // res.send("Hey I am Added");
- 
+ console.log("in post : "+req.file.filename);
   var item={
     title: req.body.title,
     author: req.body.author,
