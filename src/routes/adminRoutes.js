@@ -18,7 +18,7 @@ const storage=multer.diskStorage({
   //add back the extensions
   filename:function(request,file, callback){
   
-    callback(null,file.fieldname+Date.now()+path.extname(file.originalname));
+    callback(null,file.originalname);
   }
 })
 
